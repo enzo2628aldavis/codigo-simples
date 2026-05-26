@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Loja Simples</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .produto { margin-bottom: 20px; }
+    img { width: 150px; display: block; margin-bottom: 5px; }
+    button { margin-top: 15px; padding: 10px; }
+    .resultado { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Minha Loja</h1>
+
+  <div class="produto">
+    <img src="neymar-figurinha-extra-1-.webp" alt="Produto 1">
+    <label><input type="checkbox" id="produto1" value="400"> Produto 1 - R$400</label>
+  </div>
+
+  <div class="produto">
+    <img src="cr7.jpg" alt="Produto 2">
+    <label><input type="checkbox" id="produto2" value="200"> Produto 2 - R$200</label>
+  </div>
+
+  <div>
+    <label for="parcelas">Escolha o parcelamento:</label>
+    <select id="parcelas">
+      <option value="3">3x sem juros</option>
+      <option value="6">6x sem juros</option>
+      <option value="10">10x sem juros</option>
+    </select>
+  </div>
+
+  <button onclick="calcular()">Calcular Total</button>
+
+  <div class="resultado" id="resultado"></div>
+
+  <script>
+    function calcular() {
+      let total = 0;
+      if (document.getElementById("produto1").checked) {
+        total += parseFloat(document.getElementById("produto1").value);
+      }
+      if (document.getElementById("produto2").checked) {
+        total += parseFloat(document.getElementById("produto2").value);
+      }
+
+      if (total === 0) {
+        document.getElementById("resultado").innerHTML = "Nenhum produto selecionado.";
+        return;
+      }
+
+      let valor10 = total * 0.10;
+      let parcelas = parseInt(document.getElementById("parcelas").value);
+      let valorParcela = total / parcelas;
+
+      document.getElementById("resultado").innerHTML = `
+        Total da venda: R$${total.toFixed(2)} <br>
+        Valor 10%: R$${valor10.toFixed(2)} <br>
+        Parcelado em ${parcelas}x sem juros: R$${valorParcela.toFixed(2)} por mês <br>
+        Total parcelado: R$${total.toFixed(2)}
+      `;
+    }
+  </script>
+</body>
+</html>
